@@ -1,28 +1,30 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 mood_quotes = {
     "happy": "Keep shining. Your energy can light up someone's day ✨",
-
     "sad": "Storms don't last forever. Better days are coming 🌈",
-
     "tired": "Rest is not quitting. Even champions recover 🔋",
-
     "motivated": "Small steps every day create massive success 🚀",
-
     "angry": "Control your emotions before they control your decisions 🧠"
 }
 
 @app.get("/")
 def home():
-    return {
-        "available_moods": list(mood_quotes.keys())
-    }
+    return {"available_moods": list(mood_quotes.keys())}
 
 @app.get("/mood/{mood}")
 def mood_check(mood):
-
     mood = mood.lower()
 
     if mood in mood_quotes:
