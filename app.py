@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -8,8 +10,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-app = FastAPI()
 
 mood_quotes = {
     "happy": "Keep shining. Your energy can light up someone's day ✨",
